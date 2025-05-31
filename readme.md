@@ -5,8 +5,8 @@ iOS端末でゲームをする時にDiscord RPCを通してあなたのお友達
 
 ---
 
-![GitHub License](https://img.shields.io/github/license/darui3018823/ios_rich_precense)
-![GitHub Repo Size](https://img.shields.io/github/repo-size/darui3018823/ios_rich_precense)
+![GitHub License](https://img.shields.io/github/license/darui3018823/ios_rich_presence)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/darui3018823/ios_rich_presence)
 <br>
 
 <img src="https://img.shields.io/badge/Golang-1.23.2-76E1FE.svg?logo=go&style=popout">
@@ -27,7 +27,7 @@ iOS端末でゲームをする時にDiscord RPCを通してあなたのお友達
 <br><br>
 
 
-## 🎯 利用方法
+## 🎯 前準備
 このアプリケーションは大きく分けて二つに分岐します。<br>
 どちらでも利用は可能ですのでご安心ください。<br><br>
 
@@ -109,9 +109,9 @@ Downloadsに配置してください。
 `.ps1`でmake-exeを環境変数で呼び出します。以下のコマンドをpowershellにペーストしてそのまま実行してください。
 
 ```pwsh
-mkdir ./make-exe/
-Move-Item -Path "./make-exe.exe" -Destination "./make-exe/"
-$newPath = Join-Path $env:USERPROFILE "/make-exe/"
+mkdir "$env:USERPROFILE/make-exe" -Force
+Move-Item -Path "$env:USERPROFILE/Downloads/make-exe.exe" -Destination "$env:USERPROFILE/make-exe/"
+$newPath = "$env:USERPROFILE\make-exe"
 $currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
 if ($currentPath -notlike "*$newPath*") {
     $newPathCombined = "$currentPath;$newPath"
@@ -120,13 +120,14 @@ if ($currentPath -notlike "*$newPath*") {
 } else {
     Write-Output "指定のパス '$newPath' はすでに PATH に含まれています。"
 }
+
 ```
 
 > ご不明点は<a href="https://daruks.com/contact/">こちら</a>にお願いいたします。
 
 </details>
 
-<summary>一括ビルド</summary>
+### 一括ビルド
 
 1. ビルドする
 プロジェクトのディレクトリに移動し、以下のコマンドを実行してください。
@@ -135,6 +136,7 @@ if ($currentPath -notlike "*$newPath*") {
 ```
 
 > ご不明点は<a href="https://daruks.com/contact/">こちら</a>にお願いいたします。
+</details>
 
 </details>
 
@@ -174,3 +176,41 @@ Move-Item -Path "./dist/del_rpc.exe" -Destination "./python/"
 > 詳細な解説等は<a href="https://daruks.com/contact/">こちら</a>よりお問い合わせをお願いいたします。
 
 </details>
+
+
+## 利用手順
+前記のどちらかを完了していることが前提となります。
+
+### iOSに導入
+1. アプリのインストール<br>
+iOS/iPadOS 向けに、Appleより提供されている"ショートカット"を利用します。以下よりインストールをしてください。<br>
+<a href="https://apps.apple.com/jp/app/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88/id1462947752">「ショートカット」をApp Storeで - App Store</a>
+
+2. ショートカットを追加<br>
+<a href="https://www.icloud.com/shortcuts/8e00f6c26ed0400fbacb297244bcdb5e">discord-rpc-example | iCloud Shortcut</a>
+
+<a href="https://www.icloud.com/shortcuts/cbcf4a698f7f4fecb869a1325e2535fc">discord-rpc-example-del | iCloud Shortcut</a>
+
+3. オートメーションを追加<br>
+ここでは"Arcaea"を例に追加していきます。<br>
+> 使用実機: iPad 9th, iPadOS 18.5
+
+<img src="./img/add_automation_1.png" width="50%" alt="step1"><img src="./img/add_automation_2.png" width="50%" alt="step1">
+<img src="./img/add_automation_3.png" width="50%" alt="step1"><img src="./img/add_automation_4.png" width="50%" alt="step1">
+
+例にあるdelの方も3枚目を"閉じている"にし、同様に進めてください。
+> `discord-rpc-arcaea`のサンプルは以下に掲載しております。
+>> <a href="https://www.icloud.com/shortcuts/7fb4f94c3f66465eb4e89cd3aa6a15bc">discord-rpc-arcaea | iCloud Shortcut</a> <br>
+>> <a href="https://www.icloud.com/shortcuts/83bb2cbf45d74dd996199300836ed387">discord-rpc-arcaea-del | iCloud Shortcut</a>
+
+<br><br>
+
+
+
+
+## お問い合わせ
+- コードの問題に対するお問い合わせ
+<a href="https://github.com/darui3018823/ios_rich_presence/issues">GitHub Issues</a>をご利用ください。
+
+- インストールの手順やその他に関するお問い合わせ
+<a href="https://daruks.com/contact/">ホームページ</a>をご利用ください。
