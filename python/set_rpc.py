@@ -12,6 +12,9 @@ app = sys.argv[1]
 device = sys.argv[2] if len(sys.argv) > 2 else "Unknown Device"
 user = sys.argv[3] if len(sys.argv) > 3 else "Unknown User"
 
+print(f"DEBUG: 読み込みファイル: ./json/{app}.json")
+print("DEBUG: 引数", app, device, user)
+
 # JSON読み込み
 with open(f"./json/{app}.json", "r", encoding="utf-8") as f:
     all_config = json.load(f)
@@ -20,6 +23,8 @@ cfg = all_config.get(app)
 if not cfg:
     print(f"Error: app config for '{app}' not found.")
     sys.exit(1)
+    
+print("DEBUG: 読み込んだボタン:", cfg.get("Buttons"))
 
 # プレースホルダ置換
 def replace_placeholders(text: str, context: dict):

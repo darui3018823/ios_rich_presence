@@ -48,7 +48,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("RPC update requested: app=%s, device=%s, user=%s\n", payload.Data.App, payload.Data.Device, payload.Data.User)
-	cmd := exec.Command("./python/set_rpc.py", payload.Data.App, payload.Data.Device, payload.Data.User)
+	cmd := exec.Command("./python/set_rpc.exe", payload.Data.App, payload.Data.Device, payload.Data.User)
 	err := cmd.Run()
 	if err != nil {
 		log.Println("Pythonバイナリ実行エラー:", err)
@@ -61,6 +61,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handler)
+	fmt.Println("iOS ShortCut DiscordRP Server v1.4.0")
 	log.Println("サーバー起動中 (http://localhost:8080)")
 	http.ListenAndServe(":8080", nil)
 }
