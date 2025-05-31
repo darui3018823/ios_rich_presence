@@ -93,7 +93,7 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if pid, ok := appPIDs[app]; ok {
-		err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/F").Run()
+		err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/f", "/t").Run()
 		if err != nil {
 			log.Println("taskkillエラー:", err)
 		} else {
@@ -108,7 +108,7 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("iOS ShortCut DiscordRP Server v2.0.1")
+	fmt.Println("iOS ShortCut DiscordRP Server v2.1.0")
 	http.HandleFunc("/set-rpc", handleSetRPC)
 	http.HandleFunc("/clear-rpc", handleClearRPC)
 	log.Println("サーバー起動中 (http://localhost:8080)")
