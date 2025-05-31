@@ -63,5 +63,6 @@ kwargs = {
 RPC.update(**{k: v for k, v in kwargs.items() if v is not None})
 print(f"[OK] RPC updated for app: {app} ({device}, {user})")
 
-print("RPC set. Holding for 60 seconds...")
-time.sleep(60)
+print("RPC set. Holding forever...")
+while True:
+    time.sleep(3600)

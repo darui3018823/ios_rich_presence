@@ -74,34 +74,41 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if payload.Token != expectedToken {
-		payloadJson, _ := json.MarshalIndent(payload, "", "  ")
-		log.Println("Unauthorized (clear token mismatch)")
-		log.Println("Request payload:\n" + string(payloadJson))
+		log.Println("Unauthorized (/clear-rpc)")
 		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
-	pid, ok := appPIDs[payload.Data.App]
-	if !ok {
-		http.Error(w, "No RPC running for this app", http.StatusNotFound)
+	app := payload.Data.App
+	if app == "" {
+		http.Error(w, "App name is required", http.StatusBadRequest)
 		return
 	}
 
-	// taskkill実行（Windows専用）
-	err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/F").Run()
+	// 明示的にRPC削除
+	err := exec.Command("./python/clear_rpc.exe", app).Run()
 	if err != nil {
-		log.Println("taskkillエラー:", err)
-		http.Error(w, "Failed to kill RPC process", http.StatusInternalServerError)
-		return
+		log.Println("clear_rpc 実行エラー:", err)
+		http.Error(w, "Failed to clear RPC", http.StatusInternalServerError)
 	}
 
-	delete(appPIDs, payload.Data.App)
-	log.Printf("RPC process for %s (PID %d) terminated.\n", payload.Data.App, pid)
-	w.Write([]byte("Cleared"))
+	if pid, ok := appPIDs[app]; ok {
+		err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/F").Run()
+		if err != nil {
+			log.Println("taskkillエラー:", err)
+		} else {
+			log.Printf("プロセス %s (PID %d) を終了しました\n", app, pid)
+			delete(appPIDs, app)
+		}
+	} else {
+		log.Println("記録されたPIDがありません")
+	}
+
+	w.Write([]byte("RPC cleared"))
 }
 
 func main() {
-	fmt.Println("iOS ShortCut DiscordRP Server v1.7.0")
+	fmt.Println("iOS ShortCut DiscordRP Server v2.0.0")
 	http.HandleFunc("/set-rpc", handleSetRPC)
 	http.HandleFunc("/clear-rpc", handleClearRPC)
 	log.Println("サーバー起動中 (http://localhost:8080)")
