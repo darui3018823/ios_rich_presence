@@ -1,0 +1,16 @@
+{
+    "Arcaea": {
+        "ClientId": "1378213432918282410",
+        "Details": "Playing Arcaea",
+        "State": "User: daruks, In Game",
+        "LargeImage": "Arcaea",
+        "LargeImageText": "Arcaea",
+        "SmallImage": "Apple",
+        "SmallImageText": "device",
+        "Buttons": [
+            {"Label": "Arcaea - New Dimension Rhythm Game", "Url": "https://arcaea.lowiro.com/"}
+        ],
+        "PartyId": null,
+        "PartySize": [1, 1]
+    }
+}
