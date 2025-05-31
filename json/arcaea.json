@@ -8,8 +8,8 @@
         "SmallImage": "Apple",
         "SmallImageText": "{device}",
         "Buttons": [
-            {"label": "Play Arcaea", "Url": "https://arcaea.lowiro.com/ja/"},
-            {"label": "Follow on Twitter", "Url": "https://twitter.com/arcaea_jp"}
+            {"label": "Play Arcaea", "url": "https://arcaea.lowiro.com/ja/"},
+            {"label": "Follow on Twitter", "url": "https://twitter.com/arcaea_jp"}
         ],
         "PartyId": null,
         "PartySize": [1, 1]

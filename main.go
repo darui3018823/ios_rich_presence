@@ -26,6 +26,7 @@ type Payload struct {
 }
 
 var expectedToken = os.Getenv("RPC_AUTH_TOKEN")
+var appPIDs = make(map[string]int)
 
 func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
@@ -47,15 +48,16 @@ func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("RPC update requested: app=%s, device=%s, user=%s\n", payload.Data.App, payload.Data.Device, payload.Data.User)
 	cmd := exec.Command("./python/set_rpc.exe", payload.Data.App, payload.Data.Device, payload.Data.User)
-	err := cmd.Run()
-	if err != nil {
-		log.Println("Pythonバイナリ実行エラー:", err)
-		http.Error(w, "RPC update failed", http.StatusInternalServerError)
+	if err := cmd.Start(); err != nil {
+		log.Println("set_rpc起動失敗:", err)
+		http.Error(w, "Failed to start RPC", http.StatusInternalServerError)
 		return
 	}
 
+	// 起動成功 → PID記録
+	appPIDs[payload.Data.App] = cmd.Process.Pid
+	log.Printf("RPC started for %s with PID %d\n", payload.Data.App, cmd.Process.Pid)
 	w.Write([]byte("OK"))
 }
 
@@ -79,16 +81,23 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("RPC clear requested: app=%s\n", payload.Data.App)
-	cmd := exec.Command("./python/clear_rpc.exe", payload.Data.App)
-	err := cmd.Run()
-	if err != nil {
-		log.Println("Pythonクリアバイナリ実行エラー:", err)
-		http.Error(w, "RPC clear failed", http.StatusInternalServerError)
+	pid, ok := appPIDs[payload.Data.App]
+	if !ok {
+		http.Error(w, "No RPC running for this app", http.StatusNotFound)
 		return
 	}
 
-	w.Write([]byte("RPC Cleared"))
+	// taskkill実行（Windows専用）
+	err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/F").Run()
+	if err != nil {
+		log.Println("taskkillエラー:", err)
+		http.Error(w, "Failed to kill RPC process", http.StatusInternalServerError)
+		return
+	}
+
+	delete(appPIDs, payload.Data.App)
+	log.Printf("RPC process for %s (PID %d) terminated.\n", payload.Data.App, pid)
+	w.Write([]byte("Cleared"))
 }
 
 func main() {
