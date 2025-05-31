@@ -11,6 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 )
 
 type InnerData struct {
@@ -47,6 +48,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("RPC update requested: app=%s, device=%s, user=%s\n", payload.Data.App, payload.Data.Device, payload.Data.User)
+	cmd := exec.Command("./python/set_rpc.py", payload.Data.App, payload.Data.Device, payload.Data.User)
+	err := cmd.Run()
+	if err != nil {
+		log.Println("Pythonバイナリ実行エラー:", err)
+		http.Error(w, "RPC update failed", http.StatusInternalServerError)
+		return
+	}
+
 	w.Write([]byte("OK"))
 }
 

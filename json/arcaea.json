@@ -6,7 +6,7 @@
         "LargeImage": "Arcaea",
         "LargeImageText": "Arcaea",
         "SmallImage": "Apple",
-        "SmallImageText": "device",
+        "SmallImageText": "{device}",
         "Buttons": [
             {"Label": "Arcaea - New Dimension Rhythm Game", "Url": "https://arcaea.lowiro.com/"}
         ],
