@@ -8,7 +8,8 @@
         "SmallImage": "Apple",
         "SmallImageText": "{device}",
         "Buttons": [
-            {"Label": "Arcaea - New Dimension Rhythm Game", "Url": "https://arcaea.lowiro.com/"}
+            {"label": "Play Arcaea", "Url": "https://arcaea.lowiro.com/ja/"},
+            {"label": "Follow on Twitter", "Url": "https://twitter.com/arcaea_jp"}
         ],
         "PartyId": null,
         "PartySize": [1, 1]
