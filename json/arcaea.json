@@ -3,9 +3,9 @@
         "ClientId": "1378213432918282410",
         "Details": "Playing Arcaea",
         "State": "User: daruks, In Game",
-        "LargeImage": "Arcaea",
+        "LargeImage": "arcaea_icon",
         "LargeImageText": "Arcaea",
-        "SmallImage": "Apple",
+        "SmallImage": "apple_icon",
         "SmallImageText": "{device}",
         "Buttons": [
             {"label": "Play Arcaea", "url": "https://arcaea.lowiro.com/ja/"},

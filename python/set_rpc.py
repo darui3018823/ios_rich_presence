@@ -65,4 +65,4 @@ print(f"[OK] RPC updated for app: {app} ({device}, {user})")
 
 print("RPC set. Holding forever...")
 while True:
-    time.sleep(3600)
+    time.sleep(2)

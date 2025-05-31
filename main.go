@@ -86,7 +86,7 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 明示的にRPC削除
-	err := exec.Command("./python/clear_rpc.exe", app).Run()
+	err := exec.Command("./python/del_rpc.exe", app).Run()
 	if err != nil {
 		log.Println("clear_rpc 実行エラー:", err)
 		http.Error(w, "Failed to clear RPC", http.StatusInternalServerError)
@@ -108,7 +108,7 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("iOS ShortCut DiscordRP Server v2.0.0")
+	fmt.Println("iOS ShortCut DiscordRP Server v2.0.1")
 	http.HandleFunc("/set-rpc", handleSetRPC)
 	http.HandleFunc("/clear-rpc", handleClearRPC)
 	log.Println("サーバー起動中 (http://localhost:8080)")
