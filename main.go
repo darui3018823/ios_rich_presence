@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -22,14 +23,18 @@ type Payload struct {
 var expectedToken = os.Getenv("RPC_AUTH_TOKEN")
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	body, _ := io.ReadAll(r.Body)
+	fmt.Println("受信Rawボディ:")
+	fmt.Println(string(body))
+
 	var payload Payload
-	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
+	if err := json.Unmarshal(body, &payload); err != nil {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		fmt.Println("JSON解析エラー:", err)
 		return
 	}
 
 	if payload.Token != expectedToken {
-		// payloadを見やすくJSON整形して出力
 		payloadJson, _ := json.MarshalIndent(payload, "", "  ")
 		log.Println("Unauthorized (body token mismatch)")
 		log.Println("Request payload:\n" + string(payloadJson))
