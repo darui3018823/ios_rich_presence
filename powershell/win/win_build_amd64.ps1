@@ -1,4 +1,3 @@
-mkdir ./dist/win/
 Remove-Item ./dist/win/ios_shortcut_rpc_serv_amd64win.exe -Force
 $env:GOOS = "windows"
 $env:GOARCH = "amd64"
