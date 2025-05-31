@@ -16,9 +16,20 @@ type OuterPayload struct {
 
 var expectedToken = "Bearer " + os.Getenv("RPC_AUTH_TOKEN")
 
+func print_hander(r *http.Request) {
+	for name, values := range r.Header {
+		for _, value := range values {
+			fmt.Printf("%s: %s\n", name, value)
+		}
+	}
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Header.Get("Authorization") != expectedToken {
 		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
+		fmt.Println("Unauthorized access attempt")
+		fmt.Println("header:")
+		print_hander(r)
 		return
 	}
 
