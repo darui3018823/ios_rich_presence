@@ -62,3 +62,6 @@ kwargs = {
 # None を除去して実行
 RPC.update(**{k: v for k, v in kwargs.items() if v is not None})
 print(f"[OK] RPC updated for app: {app} ({device}, {user})")
+
+print("RPC set. Holding for 60 seconds...")
+time.sleep(60)

@@ -101,7 +101,7 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("iOS ShortCut DiscordRP Server v1.6.0")
+	fmt.Println("iOS ShortCut DiscordRP Server v1.7.0")
 	http.HandleFunc("/set-rpc", handleSetRPC)
 	http.HandleFunc("/clear-rpc", handleClearRPC)
 	log.Println("サーバー起動中 (http://localhost:8080)")

@@ -1,3 +1,5 @@
 dist/
 assets/
+build/
+*.spec
 Python/*.exe
