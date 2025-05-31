@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 )
 
@@ -13,7 +14,14 @@ type OuterPayload struct {
 	Data string `json:"data"`
 }
 
+var expectedToken = "Bearer " + os.Getenv("RPC_AUTH_TOKEN")
+
 func handler(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Authorization") != expectedToken {
+		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
 	var outer OuterPayload
 	bodyBytes, _ := io.ReadAll(r.Body)
 
