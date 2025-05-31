@@ -1,0 +1,17 @@
+{
+    "fatego": {
+        "ClientId": "1378287653362995271",
+        "Details": "Playing Fate/Grand Order",
+        "State": "User: だるかす, In Game",
+        "LargeImage": "fatego_icon",
+        "LargeImageText": "Fate/Grand Order",
+        "SmallImage": "apple_icon",
+        "SmallImageText": "{device}",
+        "Buttons": [
+            {"label": "Play Arcaea", "url": "https://arcaea.lowiro.com/ja/"},
+            {"label": "Follow on Twitter", "url": "https://twitter.com/arcaea_jp"}
+        ],
+        "PartyId": null,
+        "PartySize": [1, 1]
+    }
+}
