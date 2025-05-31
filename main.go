@@ -3,58 +3,37 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
 )
 
-type OuterPayload struct {
-	Data string `json:"data"`
+type Payload struct {
+	Token  string `json:"token"`
+	App    string `json:"app"`
+	Device string `json:"device"`
+	User   string `json:"user"`
 }
 
-var expectedToken = "Bearer " + os.Getenv("RPC_AUTH_TOKEN")
-
-func print_hander(r *http.Request) {
-	for name, values := range r.Header {
-		for _, value := range values {
-			fmt.Printf("%s: %s\n", name, value)
-		}
-	}
-}
+var expectedToken = os.Getenv("RPC_AUTH_TOKEN")
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Authorization") != expectedToken {
-		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
-		fmt.Println("Unauthorized access attempt")
-		fmt.Println("header:")
-		print_hander(r)
-		return
-	}
-
-	var outer OuterPayload
-	bodyBytes, _ := io.ReadAll(r.Body)
-
-	// とりあえず保存（後で検証用に使える）
-	fmt.Println("--- Raw JSON ---")
-	fmt.Println(string(bodyBytes))
-
-	err := json.Unmarshal(bodyBytes, &outer)
-	if err != nil {
+	var payload Payload
+	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
 
-	// そのままPythonに渡す
-	cmd := exec.Command("python3", "dispatch.py", outer.Data)
-	err = cmd.Run()
-	if err != nil {
-		log.Println("Pythonエラー:", err)
-		http.Error(w, "RPC更新失敗", http.StatusInternalServerError)
+	if payload.Token != expectedToken {
+		// payloadを見やすくJSON整形して出力
+		payloadJson, _ := json.MarshalIndent(payload, "", "  ")
+		log.Println("Unauthorized (body token mismatch)")
+		log.Println("Request payload:\n" + string(payloadJson))
+		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
+	fmt.Printf("RPC update requested: app=%s, device=%s, user=%s\n", payload.App, payload.Device, payload.User)
 	w.Write([]byte("OK"))
 }
 
