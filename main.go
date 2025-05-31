@@ -8,11 +8,15 @@ import (
 	"os"
 )
 
-type Payload struct {
-	Token  string `json:"token"`
+type InnerData struct {
 	App    string `json:"app"`
 	Device string `json:"device"`
 	User   string `json:"user"`
+}
+
+type Payload struct {
+	Token string    `json:"token"`
+	Data  InnerData `json:"data"`
 }
 
 var expectedToken = os.Getenv("RPC_AUTH_TOKEN")
@@ -33,7 +37,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("RPC update requested: app=%s, device=%s, user=%s\n", payload.App, payload.Device, payload.User)
+	fmt.Printf("RPC update requested: app=%s, device=%s, user=%s\n", payload.Data.App, payload.Data.Device, payload.Data.User)
 	w.Write([]byte("OK"))
 }
 
