@@ -1,0 +1,17 @@
+{
+    "osu!lazer": {
+        "ClientId": "1378284358481477743",
+        "Details": "Playing osu!lazer",
+        "State": "User: daruks, In Game",
+        "LargeImage": "osu_icon",
+        "LargeImageText": "osu!lazer",
+        "SmallImage": "apple_icon",
+        "SmallImageText": "{device}",
+        "Buttons": [
+            {"label": "Rhythm is just a click away!", "url": "https://osu.ppy.sh/"},
+            {"label": "Follow on Twitter", "url": "https://twitter.com/osugame"}
+        ],
+        "PartyId": null,
+        "PartySize": [1, 1]
+    }
+}
