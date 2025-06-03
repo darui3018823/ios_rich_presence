@@ -8,7 +8,7 @@
         "SmallImage": "apple_icon",
         "SmallImageText": "{device}",
         "Buttons": [
-            {"label": "Play Arcaea", "url": "https://arcaea.lowiro.com/ja/"},
+            {"label": "Play Fate/GO", "url": "https://arcaea.lowiro.com/ja/"},
             {"label": "Follow on Twitter", "url": "https://twitter.com/arcaea_jp"}
         ],
         "PartyId": null,
