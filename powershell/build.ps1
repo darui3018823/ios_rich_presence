@@ -10,7 +10,7 @@ param (
     [switch]$Auto
 )
 
-function Detect-Platform {
+function Get-Platform {
     $os = ""
     $arch = ""
 
@@ -35,7 +35,7 @@ function Detect-Platform {
     return @{ os = $os; arch = $arch }
 }
 
-function Ask-WithAuto($label, $options, $defaultDetector) {
+function Read-WithAuto($label, $options, $defaultDetector) {
     Write-Host "$label (Enterキーで自動検出)" -ForegroundColor Yellow
     foreach ($opt in $options.GetEnumerator()) {
         Write-Host "[$($opt.Key)] $($opt.Value)"
@@ -86,26 +86,26 @@ function Build-PythonTools {
 Write-Host "`n💡 iOS Shortcut RPC Server Build Tool" -ForegroundColor Cyan
 
 if ($Auto) {
-    $platform = Detect-Platform
+    $platform = Get-Platform
     $os = $platform.os
     $arch = $platform.arch
 } else {
-    $defaultOs = { (Detect-Platform).os }
-    $defaultArch = { (Detect-Platform).arch }
+    $defaultOs = { (Get-Platform).os }
+    $defaultArch = { (Get-Platform).arch }
 
-    $os = Ask-WithAuto "対象OSを選択してください" @{
+    $os = Read-WithAuto "対象OSを選択してください" @{
         "1" = "windows"
         "2" = "linux"
         "3" = "darwin"
     } $defaultOs
 
-    $arch = Ask-WithAuto "アーキテクチャを選択してください" @{
+    $arch = Read-WithAuto "アーキテクチャを選択してください" @{
         "1" = "amd64"
         "2" = "arm64"
     } $defaultArch
 
     $defaultFull = { $false }
-    $fullChoice = Ask-WithAuto "Full Build（Python等含む）を行いますか？" @{
+    $fullChoice = Read-WithAuto "Full Build（Python等含む）を行いますか？" @{
         "1" = $true
         "2" = $false
     } $defaultFull
