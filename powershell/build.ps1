@@ -93,22 +93,22 @@ if ($Auto) {
     $defaultOs = { (Get-Platform).os }
     $defaultArch = { (Get-Platform).arch }
 
-    $os = Read-WithAuto "対象OSを選択してください" @{
+    $os = Read-WithAuto "対象OSを選択してください" ([ordered]@{
         "1" = "windows"
         "2" = "linux"
         "3" = "darwin"
-    } $defaultOs
+    }) $defaultOs
 
-    $arch = Read-WithAuto "アーキテクチャを選択してください" @{
+    $arch = Read-WithAuto "アーキテクチャを選択してください" ([ordered]@{
         "1" = "amd64"
         "2" = "arm64"
-    } $defaultArch
+    }) $defaultArch
 
     $defaultFull = { $false }
-    $fullChoice = Read-WithAuto "Full Build（Python等含む）を行いますか？" @{
+    $fullChoice = Read-WithAuto "Full Build（Python等含む）を行いますか？" ([ordered]@{
         "1" = $true
         "2" = $false
-    } $defaultFull
+    }) $defaultFull
 
 
     $Full = $fullChoice
