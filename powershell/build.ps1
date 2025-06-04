@@ -46,7 +46,7 @@ function Read-WithAuto($label, $options, $defaultDetector) {
         return $defaultDetector.Invoke()
     }
 
-    if ($options.ContainsKey($choice)) {
+    if ($options.Contains($choice)) {
         return $options[$choice]
     }
 
