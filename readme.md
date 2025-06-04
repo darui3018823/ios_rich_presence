@@ -131,7 +131,37 @@ if ($currentPath -notlike "*$newPath*") {
 1. ビルドする
 プロジェクトのディレクトリに移動し、以下のコマンドを実行してください。
 ```bash
-./powershell/win/win_build_amd64_full.ps1
+./powershell/build.ps1
+```
+PowerShell上で実行すると手順が出ますので特にカスタムする予定でなければ以下のようにお進みください。
+```bash
+PS > ./ios_rich_presence/powershell/build.ps1
+
+💡 iOS Shortcut RPC Server Build Tool
+対象OSを選択してください (Enterキーで自動検出)
+[1] windows
+[2] linux
+[3] darwin
+番号を入力してください:  (Enterを押す)
+アーキテクチャを選択してください (Enterキーで自動検出)
+[1] amd64
+[2] arm64
+番号を入力してください:  (Enterを押す)
+Full Build（Python等含む）を行いますか？ (Enterキーで自動検出)
+[1] True
+[2] False
+番号を入力してください: 1
+
+🔨 Building Go Server for windows amd64...
+✅ Go Server build complete: ./dist/windows/ios_shortcut_rpc_serv_amd64windows.exe
+
+🐍 Building Python executables...
+(中略)
+✅ Python build complete.
+
+🎉 ビルド完了: windows / amd64
+▶ 実行コマンド: ./dist/windows/ios_shortcut_rpc_serv_amd64windows.exe
+PS >
 ```
 
 > ご不明点は<a href="https://daruks.com/contact/">こちら</a>にお願いいたします。
