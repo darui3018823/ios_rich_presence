@@ -186,7 +186,7 @@ iOS/iPadOS 向けに、Appleより提供されている"ショートカット"�
 <a href="https://apps.apple.com/jp/app/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88/id1462947752">「ショートカット」をApp Storeで - App Store</a>
 
 2. ショートカットを追加<br>
-<a href="https://www.icloud.com/shortcuts/8e00f6c26ed0400fbacb297244bcdb5e">discord-rpc-example | iCloud Shortcut</a>
+<a href="https://www.icloud.com/shortcuts/8e00f6c26ed0400fbacb297244bcdb5e">discord-rpc-example | iCloud Shortcut</a><br>
 <a href="https://www.icloud.com/shortcuts/cbcf4a698f7f4fecb869a1325e2535fc">discord-rpc-example-del | iCloud Shortcut</a>
 
 3. オートメーションを追加<br>
