@@ -101,7 +101,7 @@ winget install --id Microsoft.PowerShell --source winget
 <details>
 <summary>make-exeのインストール</summary>
 
-1. <a href="https://github.com/darui3018823/make-exe/releases/download/v1.0.0/">Download make-exe.exe</a>よりダウンロードします。<br>
+1. <a href="https://github.com/darui3018823/make-exe/releases/tag/v1.0.0">Download make-exe.exe</a>よりダウンロードします。<br>
 Downloadsに配置してください。
 
 2. 環境変数にパスを通します。<br>
@@ -187,7 +187,6 @@ iOS/iPadOS 向けに、Appleより提供されている"ショートカット"�
 
 2. ショートカットを追加<br>
 <a href="https://www.icloud.com/shortcuts/8e00f6c26ed0400fbacb297244bcdb5e">discord-rpc-example | iCloud Shortcut</a>
-
 <a href="https://www.icloud.com/shortcuts/cbcf4a698f7f4fecb869a1325e2535fc">discord-rpc-example-del | iCloud Shortcut</a>
 
 3. オートメーションを追加<br>
