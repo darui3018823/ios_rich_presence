@@ -9,10 +9,9 @@ iOS端末でゲームをする時にDiscord RPCを通してあなたのお友達
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/darui3018823/ios_rich_presence)
 <br>
 
-<img src="https://img.shields.io/badge/Golang-1.23.2-76E1FE.svg?logo=go&style=popout">
-<img src="https://img.shields.io/badge/Python-3.12.7-3776AB.svg?logo=python&style=popout">
-<img src="https://img.shields.io/badge/PowerShell-7.5.0-5391FE.svg?logo=powershell&style=popout">
-<img src="https://img.shields.io/badge/-Json-000000.svg?logo=json&style=popout">
+![Golang 1.23.2](https://img.shields.io/badge/Golang-1.23.2-76E1FE.svg?logo=go&style=popout)
+![Python 3.12.7](https://img.shields.io/badge/Python-3.12.7-3776AB.svg?logo=python&style=popout)
+![PowerShell 7.5.0](https://img.shields.io/badge/PowerShell-7.5.0-5391FE.svg?logo=powershell&style=popout)
 
 
 <br>
