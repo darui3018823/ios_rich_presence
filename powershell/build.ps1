@@ -1,4 +1,8 @@
-# build.ps1 - iOS Shortcut RPC Server 全OS統合ビルドスクリプト
+# build.ps1 - iOS ShortCut DiscordRPC Server, All-in-One Build Script
+# 2025 iOS ShortCut DiscordRPC Server: darui3018823 All rights reserved.
+
+# All works created by darui3018823 associated with this repository are the intellectual property of darui3018823.
+# Packages and other third-party materials used in this repository are subject to their respective licenses and copyrights.
 # Recommended PowerShell Core Version: 7.5.0 or later
 
 param (
@@ -86,21 +90,26 @@ if ($Auto) {
     $os = $platform.os
     $arch = $platform.arch
 } else {
+    $defaultOs = { (Detect-Platform).os }
+    $defaultArch = { (Detect-Platform).arch }
+
     $os = Ask-WithAuto "対象OSを選択してください" @{
         "1" = "windows"
         "2" = "linux"
         "3" = "darwin"
-    } { (Detect-Platform()).os }
+    } $defaultOs
 
     $arch = Ask-WithAuto "アーキテクチャを選択してください" @{
         "1" = "amd64"
         "2" = "arm64"
-    } { (Detect-Platform()).arch }
+    } $defaultArch
 
+    $defaultFull = { $false }
     $fullChoice = Ask-WithAuto "Full Build（Python等含む）を行いますか？" @{
         "1" = $true
         "2" = $false
-    } { $false }
+    } $defaultFull
+
 
     $Full = $fullChoice
 }

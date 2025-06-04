@@ -3,3 +3,4 @@ assets/
 build/
 *.spec
 Python/*.exe
+powershell/win_fullbuild_amd64.ps1
