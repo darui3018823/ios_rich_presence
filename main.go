@@ -107,10 +107,43 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("RPC cleared"))
 }
 
+func handleAlldelRPC(w http.ResponseWriter, r *http.Request) {
+	body, _ := io.ReadAll(r.Body)
+	fmt.Println("受信Rawボディ (/all_del):")
+	fmt.Println(string(body))
+
+	var payload Payload
+	if err := json.Unmarshal(body, &payload); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		fmt.Println("JSON解析エラー:", err)
+		return
+	}
+
+	if payload.Token != expectedToken {
+		log.Println("Unauthorized (/all_del)")
+		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	for app, pid := range appPIDs {
+		err := exec.Command("taskkill /im set_rpc.exe /f /t", app).Run()
+		if err != nil {
+			log.Printf("taskkill実行失敗: %v\n", err)
+			continue
+		}
+
+		log.Printf("プロセス %s (PID %d) を終了しました\n", app, pid)
+		delete(appPIDs, app)
+	}
+
+	w.Write([]byte("All RPCs cleared"))
+}
+
 func main() {
 	fmt.Println("iOS ShortCut DiscordRP Server v2.1.0")
 	http.HandleFunc("/set-rpc", handleSetRPC)
 	http.HandleFunc("/clear-rpc", handleClearRPC)
+	http.HandleFunc("/all_del", handleAlldelRPC)
 	log.Println("サーバー起動中 (http://localhost:8080)")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
