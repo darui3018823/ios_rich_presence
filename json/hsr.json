@@ -1,0 +1,17 @@
+{
+    "fatego": {
+        "ClientId": "1386321028405399713",
+        "Details": "Playing Honkai: Star Rail",
+        "State": "User: daru, In Game",
+        "LargeImage": "hsr_icon",
+        "LargeImageText": "Star Rail",
+        "SmallImage": "apple_icon",
+        "SmallImageText": "{device}",
+        "Buttons": [
+            {"label": "Install HSR", "url": "https://hsr.hoyoverse.com/"},
+            {"label": "Follow on Twitter", "url": "https://twitter.com/houkaistarrail"}
+        ],
+        "PartyId": null,
+        "PartySize": [1, 1]
+    }
+}
