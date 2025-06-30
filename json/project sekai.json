@@ -2,13 +2,13 @@
     "Project Sekai": {
         "ClientId": "1378282430837821540",
         "Details": "Playing Project Sekai",
-        "State": "User: darui301, In Game",
+        "State": "User: {user}, In Game",
         "LargeImage": "pjsk_icon",
         "LargeImageText": "Project Sekai",
         "SmallImage": "apple_icon",
         "SmallImageText": "{device}",
         "Buttons": [
-            {"label": "公式サイト", "url": "https://pjsekai.sega.jp/"},
+            {"label": "Official Site", "url": "https://pjsekai.sega.jp/"},
             {"label": "Follow on Twitter", "url": "https://twitter.com/pj_sekai"}
         ],
         "PartyId": null,

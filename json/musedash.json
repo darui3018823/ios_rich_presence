@@ -1,0 +1,17 @@
+{
+    "fatego": {
+        "ClientId": "1388712993688387616",
+        "Details": "Playing Muse Dash",
+        "State": "User: {user}, In Game",
+        "LargeImage": "musedash_icon",
+        "LargeImageText": "Muse Dash",
+        "SmallImage": "apple_icon",
+        "SmallImageText": "{device}",
+        "Buttons": [
+            {"label": "Official Site", "url": "https://musedash.peropero.net/#/home"},
+            {"label": "Follow on Twitter", "url": "https://twitter.com/MuseDashtheGame"}
+        ],
+        "PartyId": null,
+        "PartySize": [1, 1]
+    }
+}

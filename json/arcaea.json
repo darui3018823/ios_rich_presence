@@ -2,7 +2,7 @@
     "Arcaea": {
         "ClientId": "1378213432918282410",
         "Details": "Playing Arcaea",
-        "State": "User: daruks, In Game",
+        "State": "User: {user}, In Game",
         "LargeImage": "arcaea_icon",
         "LargeImageText": "Arcaea",
         "SmallImage": "apple_icon",

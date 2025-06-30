@@ -2,7 +2,7 @@
     "osu!lazer": {
         "ClientId": "1378284358481477743",
         "Details": "Playing osu!lazer",
-        "State": "User: daruks, In Game",
+        "State": "User: {user}, In Game",
         "LargeImage": "osu_icon",
         "LargeImageText": "osu!lazer",
         "SmallImage": "apple_icon",
