@@ -30,8 +30,6 @@ var appPIDs = make(map[string]int)
 
 func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	fmt.Println("受信Rawボディ (/set-rpc):")
-	fmt.Println(string(body))
 
 	var payload Payload
 	if err := json.Unmarshal(body, &payload); err != nil {
@@ -63,8 +61,6 @@ func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 
 func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	fmt.Println("受信Rawボディ (/clear-rpc):")
-	fmt.Println(string(body))
 
 	var payload Payload
 	if err := json.Unmarshal(body, &payload); err != nil {
@@ -109,8 +105,6 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 
 func handleAlldelRPC(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	fmt.Println("受信Rawボディ (/all_del):")
-	fmt.Println(string(body))
 
 	var payload Payload
 	if err := json.Unmarshal(body, &payload); err != nil {
