@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"sync"
 )
 
 type InnerData struct {
@@ -26,7 +27,46 @@ type Payload struct {
 }
 
 var expectedToken = os.Getenv("RPC_AUTH_TOKEN")
-var appPIDs = make(map[string]int)
+
+var (
+	appMu   sync.Mutex
+	appPIDs = make(map[string][]int)
+)
+
+func addAppPID(app string, pid int) {
+	appMu.Lock()
+	appPIDs[app] = append(appPIDs[app], pid)
+	appMu.Unlock()
+}
+
+func popAppPIDs(app string) []int {
+	appMu.Lock()
+	pids := appPIDs[app]
+	delete(appPIDs, app)
+	appMu.Unlock()
+	return pids
+}
+
+func takeAllAppPIDs() map[string][]int {
+	appMu.Lock()
+	defer appMu.Unlock()
+	all := appPIDs
+	appPIDs = make(map[string][]int)
+	return all
+}
+
+func killProcesses(app string, pids []int) {
+	for _, pid := range pids {
+		if pid == 0 {
+			continue
+		}
+		if err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/f", "/t").Run(); err != nil {
+			log.Printf("taskkillエラー: app=%s pid=%d err=%v\n", app, pid, err)
+		} else {
+			log.Printf("プロセス %s (PID %d) を終了しました\n", app, pid)
+		}
+	}
+}
 
 func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
@@ -46,7 +86,15 @@ func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cmd := exec.Command("./python/set_rpc.exe", payload.Data.App, payload.Data.Device, payload.Data.User)
+	app := payload.Data.App
+
+	// 同じアプリ名で既に起動しているRPCを終了
+	if existing := popAppPIDs(app); len(existing) > 0 {
+		log.Printf("既存のRPCを終了します: app=%s pids=%v\n", app, existing)
+		killProcesses(app, existing)
+	}
+
+	cmd := exec.Command("./python/set_rpc.exe", app, payload.Data.Device, payload.Data.User)
 	if err := cmd.Start(); err != nil {
 		log.Println("set_rpc起動失敗:", err)
 		http.Error(w, "Failed to start RPC", http.StatusInternalServerError)
@@ -54,8 +102,8 @@ func handleSetRPC(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 起動成功 → PID記録
-	appPIDs[payload.Data.App] = cmd.Process.Pid
-	log.Printf("RPC started for %s with PID %d\n", payload.Data.App, cmd.Process.Pid)
+	addAppPID(app, cmd.Process.Pid)
+	log.Printf("RPC started for %s with PID %d\n", app, cmd.Process.Pid)
 	w.Write([]byte("OK"))
 }
 
@@ -88,14 +136,8 @@ func handleClearRPC(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to clear RPC", http.StatusInternalServerError)
 	}
 
-	if pid, ok := appPIDs[app]; ok {
-		err := exec.Command("taskkill", "/PID", fmt.Sprint(pid), "/f", "/t").Run()
-		if err != nil {
-			log.Println("taskkillエラー:", err)
-		} else {
-			log.Printf("プロセス %s (PID %d) を終了しました\n", app, pid)
-			delete(appPIDs, app)
-		}
+	if pids := popAppPIDs(app); len(pids) > 0 {
+		killProcesses(app, pids)
 	} else {
 		log.Println("記録されたPIDがありません")
 	}
@@ -119,15 +161,12 @@ func handleAlldelRPC(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for app, pid := range appPIDs {
-		err := exec.Command("taskkill /im set_rpc.exe /f /t", app).Run()
-		if err != nil {
-			log.Printf("taskkill実行失敗: %v\n", err)
-			continue
+	all := takeAllAppPIDs()
+	for app, pids := range all {
+		if err := exec.Command("./python/del_rpc.exe", app).Run(); err != nil {
+			log.Printf("clear_rpc 実行エラー(app=%s): %v\n", app, err)
 		}
-
-		log.Printf("プロセス %s (PID %d) を終了しました\n", app, pid)
-		delete(appPIDs, app)
+		killProcesses(app, pids)
 	}
 
 	w.Write([]byte("All RPCs cleared"))
