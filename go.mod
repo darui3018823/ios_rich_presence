@@ -1,3 +1,3 @@
 module ios_shortcut_rpc
 
-go 1.23.2
+go 1.27.3
