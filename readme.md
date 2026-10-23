@@ -9,7 +9,7 @@ iOS端末でゲームをする時にDiscord RPCを通してあなたのお友達
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/darui3018823/ios_rich_presence)
 <br>
 
-![Golang 1.23.2](https://img.shields.io/badge/Golang-1.23.2-76E1FE.svg?logo=go&style=popout)
+![Golang 1.27.3](https://img.shields.io/badge/Golang-1.27.3-76E1FE.svg?logo=go&style=popout)
 ![Python 3.12.7](https://img.shields.io/badge/Python-3.12.7-3776AB.svg?logo=python&style=popout)
 ![PowerShell 7.5.0](https://img.shields.io/badge/PowerShell-7.5.0-5391FE.svg?logo=powershell&style=popout)
 
@@ -35,7 +35,7 @@ iOS端末でゲームをする時にDiscord RPCを通してあなたのお友達
 
 ### Step 1: 必要なものをダウンロードする 
 本アプリケーションの本方法は以下のものを利用します。
-- Go 1.23以降
+- Go 1.27.3以降
 - Python 3.12.7以降
 - PowerShell Core (7.5以降推奨)
 - make-exe(darui3018823による制作)
